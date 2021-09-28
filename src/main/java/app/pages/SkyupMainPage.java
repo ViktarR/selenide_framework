@@ -23,7 +23,7 @@ public class SkyupMainPage extends BasePage {
     private static final SelenideElement ARRIVAL_CITY_MODAL_SEARCH = $("#cityModal .cities__search");
     private static final SelenideElement FORWARD_DATE = $("#forwardDateItem");
     private static final SelenideElement BACKWARD_DATE = $("#backwardDateItem");
-    private static final SelenideElement CLOSE_CALENDAR_BUTTON = $("#datesModalContent>button");
+    private static final SelenideElement SHOW_FLIGHTS_BUTTON = $("#searchBtn");
     private static final ElementsCollection AVAILABLE_CALENDAR_DATES = $$("td>.tooltip-trigger");
 
 
@@ -49,9 +49,8 @@ public class SkyupMainPage extends BasePage {
         return PageBuilder.buildSkyupCovidRestrictionsPage();
     }
 
-    public boolean isPopUpTextCorrect(String text){
+    public boolean isPopUpTextCorrect(String text) {
         COVID_RULES_POPUP.shouldBe(Condition.visible);
-        System.out.println(POPUP_TEXT.getText());
         return POPUP_TEXT.getText().contains(text);
     }
 
@@ -67,7 +66,11 @@ public class SkyupMainPage extends BasePage {
         calendarDateElement(flightInfo.getDepartureDate()).click();
         BACKWARD_DATE.click();
         calendarDateElement(flightInfo.getReturnDate()).click();
+    }
 
+    public TicketOptionsPage showFlights(){
+        SHOW_FLIGHTS_BUTTON.click();
+        return PageBuilder.buildTicketOptionsPage();
     }
 
     private SelenideElement calendarDateElement(String dateElement) {
@@ -79,7 +82,6 @@ public class SkyupMainPage extends BasePage {
             }
         } else {
             int exactDate = Integer.parseInt(dateElement);
-            System.out.println(String.format(CONCRETE_CALENDAR_DATE_XPATH, exactDate));
             return $$(String.format(CONCRETE_CALENDAR_DATE_XPATH, exactDate)).first();
         }
     }

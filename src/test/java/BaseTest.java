@@ -18,7 +18,6 @@ class BaseTest {
     public void setUp() {
 
         Driver.initDriver();
-
         app = new App();
         softAssert = new SoftAssert();
 
