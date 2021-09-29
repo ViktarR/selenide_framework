@@ -17,14 +17,6 @@ public class CovidPopUpTest extends BaseTest {
     public void closePopUp() {
         app.skyupMainPage.open();
         app.skyupMainPage.closeAllPopUps();
-
-        logger.info("Sample info message");
-        logger.warn("Sample warn message");
-        logger.error("Sample error message");
-        logger.fatal("Sample fatal message");
-
-        softAssert.assertEquals(2, 1);
-        softAssert.assertAll();
     }
 
     @Test
