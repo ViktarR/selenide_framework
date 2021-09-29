@@ -75,14 +75,6 @@ public class Driver {
         wait.until(ExpectedConditions.urlContains(urlChunk));
     }
 
-    public static void waitForUrlDoesNotContain(String urlChunk) {
-        int maxTime = 20;
-        while (currentDriver().getCurrentUrl().contains(urlChunk) && maxTime > 0) {
-            wait(1);
-            maxTime--;
-        }
-    }
-
     public static void maximize() {
         currentDriver().manage().window().maximize();
     }
@@ -93,14 +85,6 @@ public class Driver {
 
     public static void close() {
         currentDriver().quit();
-    }
-
-    public static void wait(int seconds) {
-        try {
-            Thread.sleep(seconds * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void takeScreenshot() {
@@ -120,14 +104,13 @@ public class Driver {
 
     public static List<LogEntry> getBrowserLogs() {
         LogEntries log = currentDriver().manage().logs().get("browser");
-        List<LogEntry> logList = log.getAll();
-        return logList;
+        return log.getAll();
     }
 
     // COOKIES
 
     public static void clearCookies() {
-        open(AppConfig.baseUrl);
+        open(AppConfig.BASE_URL);
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
     }
